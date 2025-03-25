@@ -33,7 +33,6 @@ class InstrukturChart extends ChartWidget
                 [
                     'label' => 'Instructors Created',
                     'data' => $data->values(),
-                    'backgroundColor' => 'Red',
                     'borderColor' => 'Red',
                 ],
             ],
