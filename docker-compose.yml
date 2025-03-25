@@ -1,0 +1,52 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: admin-panel
+    container_name: admin-panel
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    networks:
+      - app-network
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/simcourt/admin"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    environment:
+      FRANKENPHP_CONFIG: |
+        worker:
+          count: 8
+          memory_limit: 128M
+        server:
+          num_workers: 4
+          worker_max_requests: 1000
+
+  db:
+    image: postgres:13.3
+    container_name: pgsql-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: admin_panelv1
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:

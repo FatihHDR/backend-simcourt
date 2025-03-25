@@ -1,0 +1,8 @@
+.filament-tabs .filament-tabs-tab {
+    font-size: 1.25rem; /* Increase font size */
+    padding: 1rem 1.5rem; /* Increase padding */
+}
+
+.filament-tabs .filament-tabs-tab.active {
+    font-weight: bold; /* Highlight active tab */
+}
