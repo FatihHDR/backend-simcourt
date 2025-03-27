@@ -20,7 +20,7 @@ class CreateInstruktur extends CreateRecord
     {
         return Notification::make()
             ->title('Instruktur created.')
-            ->body('The instruktur has been created successfully.') // Use body() instead of message()
+            ->body('The instructor has been created successfully.') // Use body() instead of message()
             ->icon('heroicon-o-check-circle')
             ->success(); // You can also use ->theme('success') if you prefer
     }
