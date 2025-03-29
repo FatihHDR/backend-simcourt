@@ -17,16 +17,19 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Filament\Enums\ThemeMode;
 
-class AdminPanelProvider extends PanelProvider
+use App\Models\Team;
+use App\Filament\App\Pages\Tenancy\RegisterTeam;
+use App\Filament\App\Pages\Tenancy\EditTeamProfile;
+
+class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
-            ->id('admin')
-            ->path('/simcourt/admin')
+            ->id('app')
+            ->path('/simcourt/instruktur')
             ->login()
             ->registration()
             ->passwordReset()
@@ -39,15 +42,13 @@ class AdminPanelProvider extends PanelProvider
                 "success" => Color::Emerald,
                 "warning" => Color::Amber,
             ])
-            ->defaultThemeMode(ThemeMode::Light)
-            ->font("Montserrat")
-            ->favicon(asset('images/logo-transparent.png'))
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+
+            ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
+            ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/App/Widgets'), for: 'App\\Filament\\App\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
@@ -65,6 +66,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->tenant(Team::class, ownershipRelationship: 'Team')
+            ->tenantRegistration(RegisterTeam::class)
+            ->tenantProfile(EditTeamProfile::class);
     }
 }

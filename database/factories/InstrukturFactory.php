@@ -13,9 +13,9 @@ class InstrukturFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'nip' => $this->faker->unique()->numerify('103########'),
+            'nip' => $this->faker->unique()->numerify('###########'),
             'email' => $this->faker->unique()->safeEmail,
-            'password' => bcrypt('password'), // Password yang di-hash
+            'password' => bcrypt('password'), // Default password
         ];
     }
 }

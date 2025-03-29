@@ -21,4 +21,9 @@ class PersetujuanPihak extends Model
     {
         return $this->belongsTo(Pihak::class);
     }
+
+    public function team() {
+        return $this->belongsTo(Team::class);
+    }
+
 }

@@ -25,7 +25,6 @@ class MahasiswaResource extends Resource
             Forms\Components\TextInput::make('nim')
                 ->label('NIM')
                 ->required()
-                ->unique()
                 ->placeholder('Enter the student\'s NIM'),
             Forms\Components\TextInput::make('name')
                 ->label('Name')
@@ -35,7 +34,6 @@ class MahasiswaResource extends Resource
                 ->label('Email')
                 ->required()
                 ->email()
-                ->unique()
                 ->placeholder('Enter the student\'s email'),
             Forms\Components\TextInput::make('password')
                 ->label('Password')
@@ -46,6 +44,13 @@ class MahasiswaResource extends Resource
             Forms\Components\Select::make('kelas_id')
                 ->label('Class')
                 ->relationship('kelas', 'name')
+                ->required(),
+            Forms\Components\Select::make('status')
+                ->label('Status')
+                ->options([
+                    'koordinator' => 'Koordinator',
+                    'anggota' => 'Anggota',
+                ])
                 ->required(),
         ]);
     }
@@ -76,6 +81,10 @@ class MahasiswaResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created At')
                     ->dateTime()
@@ -90,6 +99,12 @@ class MahasiswaResource extends Resource
                         'tergugat' => 'Tergugat',
                         'saksi' => 'Saksi',
                         'penasihat_hukum' => 'Penasihat Hukum',
+                    ]),
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'koordinator' => 'Koordinator',
+                        'anggota' => 'Anggota',
                     ]),
             ])
             ->actions([
