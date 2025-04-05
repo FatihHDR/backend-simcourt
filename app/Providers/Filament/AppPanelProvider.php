@@ -17,6 +17,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Navigation\MenuItem;
+use Filament\Enums\ThemeMode;
 
 use App\Models\Team;
 use App\Filament\App\Pages\Tenancy\RegisterTeam;
@@ -33,6 +35,7 @@ class AppPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->passwordReset()
+            ->profile()
             ->emailVerification()
             ->colors([
                 'danger' => Color::Red,
@@ -42,7 +45,16 @@ class AppPanelProvider extends PanelProvider
                 "success" => Color::Emerald,
                 "warning" => Color::Amber,
             ])
-
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Admin')
+                    ->url('/simcourt/admin')
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->visible(fn (): bool => auth()->user()->isAdmin()),
+            ])
+            ->defaultThemeMode(ThemeMode::Light)
+            ->font("Montserrat")
+            ->favicon(asset('images/logo-transparent.png'))
             ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
             ->pages([

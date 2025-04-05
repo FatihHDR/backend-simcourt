@@ -54,6 +54,13 @@ class DatabaseSeeder extends Seeder
         DokumenPermohonan::factory()->count(10)->create();
         PendaftaranPermohonan::factory()->count(10)->create();
 
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password123'),
+            'is_admin' => true,
+        ]);
+
         $this->call(RoleAndPermissionSeeder::class);
 
     }

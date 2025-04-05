@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\App\Resources;
+namespace App\Filament\Resources;
 
-use App\Filament\App\Resources\PersetujuanPihakResource\Pages;
-use App\Filament\App\Resources\PersetujuanPihakResource\RelationManagers;
+use App\Filament\Resources\PersetujuanPihakResource\Pages;
+use App\Filament\Resources\PersetujuanPihakResource\RelationManagers;
 use App\Models\PersetujuanPihak;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -26,16 +26,13 @@ class PersetujuanPihakResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('pihak_id')
-                    ->label('Party')
-                    ->relationship('pihak', 'nama_lengkap') // Use 'nama_lengkap' instead of 'name'
+                    ->label('Nama Siswa')
+                    ->relationship('pihak', 'nama_lengkap') // Relasi ke model Pihak
                     ->required(),
-                Forms\Components\Select::make('persetujuan')
-                    ->label('Approval')
-                    ->options([
-                        'setuju' => 'Accepted',
-                        'tidak_setuju' => 'Not Accepted',
-                        'belum_membuat' => 'Not Made Yet',
-                    ])
+    
+                Forms\Components\Select::make('team_id')
+                    ->label('Team')
+                    ->relationship('team', 'name') // Relasi ke model Team
                     ->required(),
             ]);
     }
@@ -44,26 +41,17 @@ class PersetujuanPihakResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('pihak.nama_lengkap') // Use 'nama_lengkap' instead of 'name'
-                    ->label('Party')
+                Tables\Columns\TextColumn::make('pihak.nama_lengkap')
+                    ->label('Nama Siswa')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('persetujuan')
-                    ->label('Approval')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created At')
-                    ->dateTime()
+    
+                Tables\Columns\TextColumn::make('team.name')
+                    ->label('Team')
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('persetujuan')
-                    ->label('Approval')
-                    ->options([
-                        'setuju' => 'Agree',
-                        'tidak_setuju' => 'Disagree',
-                        'belum_membuat' => 'Not Made Yet',
-                    ]),
+                // Tambahkan filter jika diperlukan
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -71,6 +59,13 @@ class PersetujuanPihakResource extends Resource
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array

@@ -18,6 +18,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Enums\ThemeMode;
+use Filament\Navigation\MenuItem;
+
+use App\Http\Middleware\VerifyIsAdmin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -31,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->registration()
             ->passwordReset()
             ->emailVerification()
+            ->profile()
             ->colors([
                 'danger' => Color::Red,
                 'grey' => Color::Slate,
@@ -38,6 +42,12 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Red,
                 "success" => Color::Emerald,
                 "warning" => Color::Amber,
+            ])
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Instruktur')
+                    ->url('/simcourt/instruktur')
+                    ->icon('heroicon-o-cog-6-tooth'),
             ])
             ->defaultThemeMode(ThemeMode::Light)
             ->font("Montserrat")
@@ -62,6 +72,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                VerifyIsAdmin::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

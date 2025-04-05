@@ -34,4 +34,9 @@ class DokumenPermohonan extends Model
     protected $attributes = [
         'created_at' => null, // Default value for created_at
     ];
+    
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
 }
