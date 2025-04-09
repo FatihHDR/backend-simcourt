@@ -7,7 +7,7 @@ use App\Models\Instruktur;
 
 class InstrukturChart extends ChartWidget
 {
-    protected static ?string $heading = 'Instructors from the Database';
+    protected static ?string $heading = 'Instructors Chart';
     protected static ?int $sort = 2;
 
     protected function getData(): array

@@ -11,8 +11,8 @@ class CreateInstruktursTable extends Migration
         Schema::create('instrukturs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nip')->unique();
-            $table->string('email')->unique();
+            $table->string('nip')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('password');
             $table->timestamps();
         });

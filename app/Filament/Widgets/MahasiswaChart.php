@@ -7,7 +7,7 @@ use Filament\Widgets\ChartWidget;
 class MahasiswaChart extends ChartWidget
 {
 
-    protected static ?string $heading = 'Students from the Database';
+    protected static ?string $heading = 'Students Chart';
     protected static ?int $sort = 2;
 
 

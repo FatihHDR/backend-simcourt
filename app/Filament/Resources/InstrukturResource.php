@@ -34,7 +34,6 @@ class InstrukturResource extends Resource
                         Forms\Components\TextInput::make('nip')
                             ->label('NIP')
                             ->required()
-                            ->unique()
                             ->placeholder('Enter the instructor\'s NIP')
                             ->helperText('Unique identification number for the instructor.'),
                         
@@ -42,7 +41,6 @@ class InstrukturResource extends Resource
                             ->label('Email')
                             ->required()
                             ->email()
-                            ->unique()
                             ->placeholder('Enter the instructor\'s email')
                             ->helperText('A valid email address for the instructor.'),
                         
