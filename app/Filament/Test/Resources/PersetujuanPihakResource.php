@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\App\Resources;
+namespace App\Filament\Test\Resources;
 
-use App\Filament\App\Resources\PersetujuanPihakResource\Pages;
-use App\Filament\App\Resources\PersetujuanPihakResource\RelationManagers;
+use App\Filament\Test\Resources\PersetujuanPihakResource\Pages;
+use App\Filament\Test\Resources\PersetujuanPihakResource\RelationManagers;
 use App\Models\PersetujuanPihak;
 use Filament\Forms;
 use Filament\Forms\Form;

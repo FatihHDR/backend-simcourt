@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\App\Resources\MahasiswaResource\Pages;
+namespace App\Filament\Test\Resources\MahasiswaResource\Pages;
 
-use App\Filament\App\Resources\MahasiswaResource;
+use App\Filament\Test\Resources\MahasiswaResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

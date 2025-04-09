@@ -14,7 +14,6 @@ class Instruktur extends Authenticatable implements JWTSubject, HasTenants
 
     public function canAccessTenant(\Illuminate\Database\Eloquent\Model $tenant): bool
     {
-        // Implement logic to determine if the tenant can be accessed
         return true; // Example: Allow access to all tenants
     }
 
@@ -38,6 +37,16 @@ class Instruktur extends Authenticatable implements JWTSubject, HasTenants
         'nip',
         'email',
         'password'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
 
     public function classes()

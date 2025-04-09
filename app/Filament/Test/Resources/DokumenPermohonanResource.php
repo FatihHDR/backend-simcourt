@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\App\Resources;
+namespace App\Filament\Test\Resources;
 
-use App\Filament\App\Resources\DokumenPermohonanResource\Pages;
-use App\Filament\App\Resources\DokumenPermohonanResource\RelationManagers;
+use App\Filament\Test\Resources\DokumenPermohonanResource\Pages;
+use App\Filament\Test\Resources\DokumenPermohonanResource\RelationManagers;
 use App\Models\DokumenPermohonan;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -22,28 +22,6 @@ class DokumenPermohonanResource extends Resource
     protected static ?string $modelLabel = 'Request Document';
     protected static ?string $navigationGroup = 'Case Management';
 
-
-    public static function getEloquentQuery(): Builder
-    {
-        $query = parent::getEloquentQuery();
-
-        if (auth()->check() && auth()->user()->guard_name === 'instruktur') {
-            return $query; 
-            
-        }
-
-        return $query->where('team_id', auth()->user()->team_id);
-    }
-
-    protected static function booted()
-    {
-        static::addGlobalScope('team', function (Builder $builder) {
-            if (auth()->check() && auth()->user()->guard_name !== 'instruktur') {
-                $builder->where('team_id', auth()->user()->team_id);
-            }
-        });
-    }
-    
     public static function form(Form $form): Form
     {
         return $form->schema([

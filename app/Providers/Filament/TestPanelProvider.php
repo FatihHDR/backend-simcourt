@@ -17,21 +17,21 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Filament\Navigation\MenuItem;
+
 use Filament\Enums\ThemeMode;
 
-class AppPanelProvider extends PanelProvider
+class TestPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->id('app')
-            ->path('/simcourt/instruktur')
+            ->id('test')
             ->login()
             ->registration()
             ->passwordReset()
-            ->profile()
             ->emailVerification()
+            ->profile()
+            ->path('/simcourt/instructor')
             ->colors([
                 'danger' => Color::Red,
                 'grey' => Color::Slate,
@@ -40,22 +40,16 @@ class AppPanelProvider extends PanelProvider
                 "success" => Color::Emerald,
                 "warning" => Color::Amber,
             ])
-            ->userMenuItems([
-                MenuItem::make()
-                    ->label('Admin')
-                    ->url('/simcourt/admin')
-                    ->icon('heroicon-o-cog-6-tooth')
-                    ->visible(fn (): bool => auth()->user()->isAdmin()),
-            ])
-            ->defaultThemeMode(ThemeMode::Light)
             ->font("Montserrat")
             ->favicon(asset('images/logo-transparent.png'))
-            ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
-            ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
+            ->defaultThemeMode(ThemeMode::Light)
+
+            ->discoverResources(in: app_path('Filament/Test/Resources'), for: 'App\\Filament\\Test\\Resources')
+            ->discoverPages(in: app_path('Filament/Test/Pages'), for: 'App\\Filament\\Test\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/App/Widgets'), for: 'App\\Filament\\App\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Test/Widgets'), for: 'App\\Filament\\Test\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
@@ -73,7 +67,7 @@ class AppPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
-            //->authGuard('instruktur')
+            ])
+            ->authGuard('instruktur');
     }
 }

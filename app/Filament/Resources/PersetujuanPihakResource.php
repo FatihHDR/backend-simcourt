@@ -21,21 +21,6 @@ class PersetujuanPihakResource extends Resource
     protected static ?string $navigationLabel = 'Approval Parties';
     protected static ?string $modelLabel = 'Approval Party';
     protected static ?string $navigationGroup = 'Case Management';
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('pihak_id')
-                    ->label('Nama Siswa')
-                    ->relationship('pihak', 'nama_lengkap') // Relasi ke model Pihak
-                    ->required(),
-    
-                Forms\Components\Select::make('team_id')
-                    ->label('Team')
-                    ->relationship('team', 'name') // Relasi ke model Team
-                    ->required(),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {

@@ -10,20 +10,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 
-class User extends Authenticatable implements HasTenants
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * Get the tenants associated with the user for the given panel.
-     *
-     * @param \Filament\Panel $panel
-     * @return array|\Illuminate\Support\Collection
-     */
-    public function getTenants(Panel $panel): Collection
-    {
-        return $this->teams;
-    }
 
     /**
      * The attributes that are mass assignable.
@@ -59,10 +49,6 @@ class User extends Authenticatable implements HasTenants
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
-    }
-
-    public function teams() {
-        return $this->belongsToMany(Team::class);
     }
 
     public function canAccessTenant($tenant): bool

@@ -54,12 +54,4 @@ class Mahasiswa extends Model implements JWTSubject, AuthenticatableContract {
     public function getJWTCustomClaims() {
         return [];
     }
-
-    public function team() {
-        return $this->belongsTo(Team::class);
-    }
-
-    public function members() {
-        return $this->belongsToMany(Team::class);
-    }
 }

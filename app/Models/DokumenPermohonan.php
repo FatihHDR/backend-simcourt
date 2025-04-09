@@ -35,18 +35,4 @@ class DokumenPermohonan extends Model
     protected $attributes = [
         'created_at' => null, // Default value for created_at
     ];
-    
-    public function team()
-    {
-        return $this->belongsTo(Team::class);
-    }
-    
-    protected static function booted()
-    {
-        static::addGlobalScope('team', function (Builder $builder) {
-            if (auth()->check() && auth()->user()->guard_name !== 'instruktur') {
-                $builder->whereNotNull('team_id'); // Only exclude records with null team_id
-            }
-        });
-    }
 }

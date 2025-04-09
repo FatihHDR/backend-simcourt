@@ -29,7 +29,7 @@ class Team extends Model
     }
 
     public function members()
-{
-    return $this->belongsToMany(Instruktur::class, 'team_user', 'team_id', 'instruktur_id');
-}
+    {
+        return $this->belongsToMany(Instruktur::class, 'team_user', 'team_id', 'instruktur_id');
+    }
 }
