@@ -18,8 +18,18 @@ class Team extends Model
         return $this->hasMany(Mahasiswa::class);
     }
 
-    public function members()
+    public function dokumen()
     {
-        return $this->belongsToMany(User::class, 'team_user', 'team_id', 'user_id');
+        return $this->hasMany(DokumenPermohonan::class);
     }
+
+    public function persetujuanPihaks()
+    {
+        return $this->hasMany(PersetujuanPihak::class);
+    }
+
+    public function members()
+{
+    return $this->belongsToMany(Instruktur::class, 'team_user', 'team_id', 'instruktur_id');
+}
 }

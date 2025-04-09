@@ -79,8 +79,8 @@ class AppPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->authGuard('instruktur')
             ->tenant(Team::class, ownershipRelationship: 'Team')
-            ->tenantRegistration(RegisterTeam::class)
             ->tenantProfile(EditTeamProfile::class);
     }
 }

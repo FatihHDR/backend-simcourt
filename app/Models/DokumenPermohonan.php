@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class DokumenPermohonan extends Model
 {
@@ -38,5 +39,14 @@ class DokumenPermohonan extends Model
     public function team()
     {
         return $this->belongsTo(Team::class);
+    }
+    
+    protected static function booted()
+    {
+        static::addGlobalScope('team', function (Builder $builder) {
+            if (auth()->check() && auth()->user()->guard_name !== 'instruktur') {
+                $builder->whereNotNull('team_id'); // Only exclude records with null team_id
+            }
+        });
     }
 }
