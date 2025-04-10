@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Test\Pages\Auth\LoginCustom;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,6 +20,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 use Filament\Enums\ThemeMode;
+use Filament\Navigation\MenuItem;
 
 class TestPanelProvider extends PanelProvider
 {
@@ -39,6 +41,13 @@ class TestPanelProvider extends PanelProvider
                 'primary' => Color::Red,
                 "success" => Color::Emerald,
                 "warning" => Color::Amber,
+            ])
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Admin')
+                    ->url('/simcourt/admin')
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->visible(fn (): bool => auth()->user()->isAdmin()),
             ])
             ->font("Montserrat")
             ->favicon(asset('images/logo-transparent.png'))

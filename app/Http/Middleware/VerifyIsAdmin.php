@@ -16,11 +16,12 @@ class VerifyIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user() && Auth::user()->is_admin) {
+        $user = Auth::guard('instruktur')->user();
+
+        if ($user && $user->isAdmin()) {
             return $next($request);
         }
 
         abort(403, 'You are not allowed to access this page.');
-
     }
 }

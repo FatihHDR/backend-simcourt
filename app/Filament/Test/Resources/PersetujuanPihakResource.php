@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\IconColumn;
 
 class PersetujuanPihakResource extends Resource
 {
@@ -43,18 +44,29 @@ class PersetujuanPihakResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('pihak.nama_lengkap') // Use 'nama_lengkap' instead of 'name'
-                    ->label('Party')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('persetujuan')
-                    ->label('Approval')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created At')
-                    ->dateTime()
-                    ->sortable(),
+        ->columns([
+            Tables\Columns\TextColumn::make('pihak.nama_lengkap')
+                ->label('Party')
+                ->searchable()
+                ->sortable(),
+            IconColumn::make('persetujuan')
+                ->label('Approval')
+                ->icon(fn (string $state): string => match ($state) {
+                    'setuju' => 'heroicon-o-check-circle', // Icon for "Agree"
+                    'tidak_setuju' => 'heroicon-o-x-circle', // Icon for "Disagree"
+                    'belum_membuat' => 'heroicon-o-question-mark-circle', // Icon for "Not Made Yet"
+                    default => 'heroicon-o-question-mark-circle', // Default icon
+                })
+                ->color(fn (string $state): string => match ($state) {
+                    'setuju' => 'success', // Green for "Agree"
+                    'tidak_setuju' => 'danger', // Red for "Disagree"
+                    'belum_membuat' => 'warning', // Yellow for "Not Made Yet"
+                    default => 'gray', // Default color
+                }),
+            Tables\Columns\TextColumn::make('created_at')
+                ->label('Created At')
+                ->dateTime()
+                ->sortable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('persetujuan')

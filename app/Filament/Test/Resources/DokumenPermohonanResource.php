@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\IconColumn;
 
 class DokumenPermohonanResource extends Resource
 {
@@ -72,9 +73,14 @@ class DokumenPermohonanResource extends Resource
             Tables\Columns\TextColumn::make('peran')
                 ->label('Role')
                 ->sortable(),
-            Tables\Columns\TextColumn::make('status')
-                ->label('Status')
-                ->sortable(),
+            Tables\Columns\IconColumn::make('status')
+                ->label('Verified')
+                ->boolean(fn ($state) => $state === 'Terverifikasi') // Map "Terverifikasi" to true
+                ->trueIcon('heroicon-o-check-circle') // Icon for true
+                ->falseIcon('heroicon-o-x-circle') // Icon for false
+                ->trueColor('success') // Color for true
+                ->falseColor('danger') // Color for false
+                ->getStateUsing(fn ($record) => $record->status === 'Terverifikasi'), // Ensure the correct state is used
             Tables\Columns\TextColumn::make('created_at')
                 ->label('Created At')
                 ->dateTime()

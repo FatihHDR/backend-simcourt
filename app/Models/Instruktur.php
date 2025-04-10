@@ -36,7 +36,9 @@ class Instruktur extends Authenticatable implements JWTSubject, HasTenants
         'name',
         'nip',
         'email',
-        'password'
+        'password',
+        'role',
+        'is_admin',
     ];
 
     protected $hidden = [
@@ -71,6 +73,6 @@ class Instruktur extends Authenticatable implements JWTSubject, HasTenants
 
     public function isAdmin(): bool
     {
-        return $this->role === 'admin'; // Assuming there's a `role` column in the `instrukturs` table
+        return $this->is_admin; // Pastikan kolom `is_admin` ada di tabel `instrukturs`
     }
 }

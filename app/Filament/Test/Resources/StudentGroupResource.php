@@ -17,40 +17,88 @@ class StudentGroupResource extends Resource
 {
     protected static ?string $model = StudentGroup::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationLabel = 'View Student Groups';
+    protected static ?string $modelLabel = 'Student Group';
+    protected static ?string $navigationGroup = 'Student Management';
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            Forms\Components\Select::make('group_id')
+                ->label('Group')
+                ->relationship('group', 'name')
+                ->required(),
+            Forms\Components\Select::make('mahasiswa_id')
+                ->label('Student')
+                ->relationship('mahasiswa', 'name')
+                ->required(),
+            Forms\Components\TextInput::make('status')
+                ->label('Status')
+                ->nullable()
+                ->placeholder('Enter the status'),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('group.name')
+                    ->label('Group')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('mahasiswa.name')
+                    ->label('Student')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('group_id')
+                    ->label('Group')
+                    ->relationship('group', 'name')
+                    ->placeholder('All Groups'),
+                Tables\Filters\SelectFilter::make('mahasiswa_id')
+                    ->label('Student')
+                    ->relationship('mahasiswa', 'name')
+                    ->placeholder('All Students'),
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'active' => 'Active',
+                        'inactive' => 'Inactive',
+                    ])
+                    ->placeholder('All Statuses'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                Tables\Actions\BulkActionGroup::make([]),
+            ])
+            ->headerActions([
+                // Add any header actions if needed
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 
-    public static function getRelations(): array
+    public static function getNavigationBadge(): ?string
     {
-        return [
-            //
-        ];
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): array|string|null
+    {
+        return static::getModel()::count() > 0 ? 'danger' : 'bg-danger';
     }
 
     public static function getPages(): array

@@ -18,7 +18,7 @@ class MahasiswaResource extends Resource
     protected static ?string $model = Mahasiswa::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
-    protected static ?string $navigationLabel = 'View Students';
+    protected static ?string $navigationLabel = 'Promote Students';
     protected static ?string $modelLabel = 'Students';
     protected static ?string $navigationGroup = 'Student Management';
 

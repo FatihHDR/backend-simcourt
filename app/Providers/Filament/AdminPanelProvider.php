@@ -46,7 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Instruktur')
-                    ->url('/simcourt/instruktur')
+                    ->url('/simcourt/instructor')
                     ->icon('heroicon-o-cog-6-tooth'),
             ])
             ->defaultThemeMode(ThemeMode::Light)
@@ -72,7 +72,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                //VerifyIsAdmin::class,
+                VerifyIsAdmin::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
