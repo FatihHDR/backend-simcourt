@@ -8,27 +8,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Filament\Models\Contracts\HasTenants;
 use Illuminate\Support\Collection;
 
-class Instruktur extends Authenticatable implements JWTSubject, HasTenants 
+class Instruktur extends Authenticatable implements JWTSubject
 {
     use HasFactory;
-
-    public function canAccessTenant(\Illuminate\Database\Eloquent\Model $tenant): bool
-    {
-        return true; // Example: Allow access to all tenants
-    }
-
-    /**
-     * Get the tenants associated with the instructor for the given panel.
-     *
-     * @param \Filament\Panel $panel
-     * @return \Illuminate\Support\Collection
-     */
-    public function getTenants(\Filament\Panel $panel): Collection
-    {
-        // If the `Instruktur` model is associated with a tenant model like `Team`, return it.
-        // Otherwise, return an empty collection.
-        return collect(); // Replace with `$this->teams` or similar if applicable.
-    }
 
     protected $table = 'instrukturs';
 

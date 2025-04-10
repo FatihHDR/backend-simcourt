@@ -50,12 +50,7 @@ class User extends Authenticatable
             'is_admin' => 'boolean',
         ];
     }
-
-    public function canAccessTenant($tenant): bool
-    {
-        return $this->teams->contains($tenant);
-    }
-
+    
     public function isAdmin(): bool
     {
         return $this->email=='admin@example.com';
