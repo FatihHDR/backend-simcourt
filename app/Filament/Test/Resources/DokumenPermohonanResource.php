@@ -102,6 +102,16 @@ class DokumenPermohonanResource extends Resource
         ]);
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): array|string|null
+    {
+        return static::getModel()::count() > 0 ? 'danger' : 'bg-danger';
+    }
+
     public static function getPages(): array
     {
         return [

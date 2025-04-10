@@ -15,8 +15,8 @@ class AdvokatResource extends Resource
     protected static ?string $model = Advokat::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
-    protected static ?string $navigationLabel = 'Advokats';
-    protected static ?string $modelLabel = 'Advokat';
+    protected static ?string $navigationLabel = 'Advocate';
+    protected static ?string $modelLabel = 'Advocate';
     protected static ?string $navigationGroup = 'Legal Management';
 
     public static function form(Form $form): Form
