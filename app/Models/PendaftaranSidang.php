@@ -25,10 +25,12 @@ class PendaftaranSidang extends Model
     {
         return $this->hasMany(FilePersyaratan::class, 'pendaftaran_sidang_id');
     }
-    public function Advokat()
+
+    public function advokat()
     {
-        return $this->hasMany(Advokat::class, 'pendaftaran_sidang_id');
+        return $this->belongsTo(Advokat::class, 'advokat_id');
     }
+
     public function Pihak()
     {
         return $this->hasMany(Pihak::class, 'pendaftaran_sidang_id');
