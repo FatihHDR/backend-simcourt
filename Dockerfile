@@ -24,7 +24,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Install application dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions for storage and cache
+# Set permissions for storage and cach@e
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
@@ -32,4 +32,4 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 EXPOSE 8080
 
 # Start the application
-CMD php artisan octane:start --host=0.0.0.0 --port=8080
+CMD ["php", "artisan", "octane:start", "--host=0.0.0.0", "--port=8080"]
