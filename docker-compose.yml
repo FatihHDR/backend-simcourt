@@ -15,11 +15,11 @@ services:
       - db
     ports:
       - "8080:8080"
-  healthcheck:
-    test: ["CMD", "curl", "-f", "http://localhost:2019/simcourt/admin"]
-    interval: 30s
-    timeout: 10s
-    retries: 5
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/simcourt/admin"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     environment:
       FRANKENPHP_CONFIG: |
         worker:
