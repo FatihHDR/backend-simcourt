@@ -1,5 +1,4 @@
-FROM dunglas/frankenphp:8.2
-
+FROM dunglas/frankenphp:1.1-php8.2
 # Install required PHP extensions and dependencies
 RUN apt-get update && apt-get install -y \
     libzip-dev \
