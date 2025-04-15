@@ -34,9 +34,9 @@ services:
     container_name: pgsql-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: admin_panelv1
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: admin
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: SimHukum129
     ports:
       - "5433:5432"
     volumes:
