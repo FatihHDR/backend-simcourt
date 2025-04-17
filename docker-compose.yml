@@ -16,7 +16,7 @@ services:
     ports:
       - "8080:8080"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/simcourt"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/simcourt/instructor"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -34,9 +34,9 @@ services:
     container_name: pgsql-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: admin
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: SimHukum129
+      POSTGRES_DB: admin_panelv1
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
     ports:
       - "5433:5432"
     volumes:
