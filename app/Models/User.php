@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+    
 
     /**
      * The attributes that are mass assignable.
@@ -54,5 +54,10 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->email=='admin@example.com';
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@https://admin-panel-main-obbu01.laravel.cloud') && $this->hasVerifiedEmail();
     }
 }
