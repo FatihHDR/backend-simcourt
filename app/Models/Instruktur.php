@@ -60,6 +60,6 @@ class Instruktur extends Authenticatable implements JWTSubject
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return str_ends_with($this->email, '@gmail.com') && $this->hasVerifiedEmail();
+        return true;
     }
 }
